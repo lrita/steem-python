@@ -200,7 +200,7 @@ class Wallet:
         if isinstance(wif, PrivateKey) or isinstance(wif, PrivateKey):
             wif = str(wif)
         try:
-            pub = format(PrivateKey(wif).pubkey, self.prefix)
+            pub = format(PrivateKey(wif, self.prefix).pubkey, self.prefix)
         except:  # noqa FIXME(sneak)
             raise InvalidWifError(
                 "Invalid Private Key Format. Please use WIF!")
