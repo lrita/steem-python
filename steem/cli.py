@@ -832,7 +832,11 @@ def legacyentry():
                 for key in sorted(account):
                     value = account[key]
                     if key == "json_metadata":
-                        value = json.dumps(json.loads(value or "{}"), indent=4)
+                        if isinstance(value, dict):
+                            value = json.dumps(value, indent=4)
+                        else:
+                            value = json.dumps(
+                                json.loads(value or "{}"), indent=4)
                     if key in ["posting", "witness_votes", "active", "owner"]:
                         value = json.dumps(value, indent=4)
                     if key == "reputation" and int(value) > 0:
