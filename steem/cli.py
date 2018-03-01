@@ -1138,7 +1138,8 @@ def legacyentry():
 
         if "owner" in args.roles:
             owner_key = PasswordKey(args.account, password, role="owner")
-            owner_pubkey = format(owner_key.get_public_key(), "STM")
+            owner_pubkey = format(owner_key.get_public_key(),
+                                  configStorage["default_prefix"])
             if owner_pubkey in [x[0] for x in account["owner"]["key_auths"]]:
                 print("Importing owner key!")
                 owner_privkey = owner_key.get_private_key()
@@ -1147,7 +1148,8 @@ def legacyentry():
 
         if "active" in args.roles:
             active_key = PasswordKey(args.account, password, role="active")
-            active_pubkey = format(active_key.get_public_key(), "STM")
+            active_pubkey = format(active_key.get_public_key(),
+                                   configStorage["default_prefix"])
             if active_pubkey in [x[0] for x in account["active"]["key_auths"]]:
                 print("Importing active key!")
                 active_privkey = active_key.get_private_key()
@@ -1156,7 +1158,8 @@ def legacyentry():
 
         if "posting" in args.roles:
             posting_key = PasswordKey(args.account, password, role="posting")
-            posting_pubkey = format(posting_key.get_public_key(), "STM")
+            posting_pubkey = format(posting_key.get_public_key(),
+                                    configStorage["default_prefix"])
             if posting_pubkey in [
                     x[0] for x in account["posting"]["key_auths"]
             ]:
@@ -1167,7 +1170,8 @@ def legacyentry():
 
         if "memo" in args.roles:
             memo_key = PasswordKey(args.account, password, role="memo")
-            memo_pubkey = format(memo_key.get_public_key(), "STM")
+            memo_pubkey = format(memo_key.get_public_key(),
+                                 configStorage["default_prefix"])
             if memo_pubkey == account["memo_key"]:
                 print("Importing memo key!")
                 memo_privkey = memo_key.get_private_key()
