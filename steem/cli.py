@@ -600,6 +600,30 @@ def legacyentry():
         help='Resteem as this user (requires to have the ' +
         'key installed in the wallet)')
     """
+        Command "post"
+    """
+    post = subparsers.add_parser('post', help='create a new post')
+    post.set_defaults(command="post")
+    post.add_argument(
+        '--account',
+        type=str,
+        required=False,
+        default=configStorage["default_account"],
+        help='post as this user (requires to have the ' +
+        'key installed in the wallet)')
+    post.add_argument('title', type=str, help='the post title')
+    post.add_argument(
+        'body',
+        type=str,
+        help='the post body. if it startwiths @, ' +
+        'it will be interpreted as filepath')
+    post.add_argument(
+        '--tags',
+        type=str,
+        required=False,
+        default=["testpost"],
+        help='the tags of this post')
+    """
         Command "follow"
     """
     parser_follow = subparsers.add_parser(
@@ -1332,6 +1356,17 @@ def legacyentry():
             steem.commit.witness_update(
                 args.signing_key, args.url, props, account=args.witness))
 
+    elif args.command == "post":
+        if args.body and args.body[0] == "@":
+            with open(args.body[1:], 'r') as f:
+                args.body = f.read()
+        steem.post(
+            args.title,
+            args.body,
+            args.account,
+            json_metadata={
+                "tags": args.tags
+            })
     else:
         print("No valid command given")
 
