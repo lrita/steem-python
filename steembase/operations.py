@@ -6,6 +6,7 @@ from collections import OrderedDict
 
 from .account import PublicKey
 from .operationids import operations
+from .storage import configStorage
 from .types import (Int16, Uint16, Uint32, Uint64, String, Bytes, Array,
                     PointInTime, Bool, Optional, Map, Id, JsonObj,
                     StaticVariant)
