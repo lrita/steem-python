@@ -1,5 +1,3 @@
-default_prefix = "STM"
-
 known_chains = {
     "STEEM": {
         "chain_id": "0" * int(256 / 4),

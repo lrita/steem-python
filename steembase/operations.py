@@ -10,8 +10,6 @@ from .types import (Int16, Uint16, Uint32, Uint64, String, Bytes, Array,
                     PointInTime, Bool, Optional, Map, Id, JsonObj,
                     StaticVariant)
 
-default_prefix = "STM"
-
 asset_precision = {
     "STEEM": 3,
     "VESTS": 6,
@@ -137,7 +135,7 @@ class Permission(GrapheneObject):
         if isArgsThisClass(self, args):
             self.data = args[0].data
         else:
-            prefix = kwargs.pop("prefix", default_prefix)
+            prefix = kwargs.pop("prefix", configStorage["default_prefix"])
 
             if len(args) == 1 and len(kwargs) == 0:
                 kwargs = args[0]
@@ -173,7 +171,7 @@ class Memo(GrapheneObject):
         if isArgsThisClass(self, args):
             self.data = args[0].data
         else:
-            prefix = kwargs.pop("prefix", default_prefix)
+            prefix = kwargs.pop("prefix", configStorage["default_prefix"])
 
             if len(args) == 1 and len(kwargs) == 0:
                 kwargs = args[0]
@@ -346,7 +344,7 @@ class AccountCreate(GrapheneObject):
         else:
             if len(args) == 1 and len(kwargs) == 0:
                 kwargs = args[0]
-            prefix = kwargs.pop("prefix", default_prefix)
+            prefix = kwargs.pop("prefix", configStorage["default_prefix"])
 
             assert len(kwargs["new_account_name"]
                        ) <= 16, "Account name must be at most 16 chars long"
@@ -377,7 +375,7 @@ class AccountCreateWithDelegation(GrapheneObject):
         else:
             if len(args) == 1 and len(kwargs) == 0:
                 kwargs = args[0]
-            prefix = kwargs.pop("prefix", default_prefix)
+            prefix = kwargs.pop("prefix", configStorage["default_prefix"])
 
             assert len(kwargs["new_account_name"]
                        ) <= 16, "Account name must be at most 16 chars long"
@@ -410,7 +408,7 @@ class AccountUpdate(GrapheneObject):
         else:
             if len(args) == 1 and len(kwargs) == 0:
                 kwargs = args[0]
-            prefix = kwargs.pop("prefix", default_prefix)
+            prefix = kwargs.pop("prefix", configStorage["default_prefix"])
 
             meta = ""
             if "json_metadata" in kwargs and kwargs["json_metadata"]:
@@ -653,12 +651,12 @@ class WitnessUpdate(GrapheneObject):
         else:
             if len(args) == 1 and len(kwargs) == 0:
                 kwargs = args[0]
-            prefix = kwargs.pop("prefix", default_prefix)
+            prefix = kwargs.pop("prefix", configStorage["default_prefix"])
 
             if not kwargs["block_signing_key"]:
                 kwargs[
                     "block_signing_key"] = \
-                        "STM1111111111111111111111111111111114T1Anm"
+                        prefix+"1111111111111111111111111111111114T1Anm"
             super().__init__(
                 OrderedDict([
                     ('owner', String(kwargs["owner"])),

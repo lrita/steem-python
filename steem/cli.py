@@ -25,6 +25,7 @@ from .witness import Witness
 availableConfigurationKeys = [
     "default_account",
     "default_vote_weight",
+    "default_prefix",
     "nodes",
 ]
 
@@ -961,7 +962,7 @@ def legacyentry():
         print(t)
 
     elif args.command == "upvote" or args.command == "downvote":
-        post = Post(args.post)
+        post = Post(args.post, steem)
         if args.command == "downvote":
             weight = -float(args.weight)
         else:

@@ -55,7 +55,7 @@ class Wallet:
 
         # RPC
         self.steemd = steemd_instance or shared_steemd_instance()
-        self.prefix = "STM"
+        self.prefix = configStorage["default_prefix"]
 
         if "keys" in kwargs:
             self.setKeys(kwargs["keys"])

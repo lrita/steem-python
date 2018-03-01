@@ -431,6 +431,7 @@ configStorage = Configuration()
 # Create Tables if database is brand new
 if not configStorage.exists_table():
     configStorage.create_table()
+    configStorage["default_prefix"] = "STM"
 
 newKeyStorage = False
 if not keyStorage.exists_table():

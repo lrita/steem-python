@@ -61,8 +61,9 @@ class Converter(object):
         props = self.steemd.get_dynamic_global_properties()
 
         # determine voting power used
-        used_power = int((voting_power * vote_pct) / 10000);
-        max_vote_denom = props['vote_power_reserve_rate'] * (5*60*60*24) / (60*60*24);
+        used_power = int((voting_power * vote_pct) / 10000)
+        max_vote_denom = props['vote_power_reserve_rate'] * (
+            5 * 60 * 60 * 24) / (60 * 60 * 24)
         used_power = int((used_power + max_vote_denom - 1) / max_vote_denom)
 
         # calculate vote rshares

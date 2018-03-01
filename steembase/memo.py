@@ -6,8 +6,7 @@ from .operations import Memo
 from Crypto.Cipher import AES
 from .base58 import base58encode, base58decode
 from .account import PrivateKey, PublicKey
-
-default_prefix = "STM"
+from .storage import configStorage
 
 
 def get_shared_secret(priv, pub):
@@ -87,7 +86,7 @@ def encode_memo(priv, pub, nonce, message, **kwargs):
         raw = _pad(raw, BS)
     " Encryption "
     cipher = hexlify(aes.encrypt(raw)).decode('ascii')
-    prefix = kwargs.pop("prefix", default_prefix)
+    prefix = kwargs.pop("prefix", configStorage["default_prefix"])
     s = {
         "from": format(priv.pubkey, prefix),
         "to": format(pub, prefix),
