@@ -91,6 +91,12 @@ def legacyentry():
     setconfig.add_argument('value', type=str, help='Configuration value')
     setconfig.set_defaults(command="set")
     """
+        Command "getversion"
+    """
+    getversionconfig = subparsers.add_parser(
+        'getversion', help='getversion get nodes version')
+    getversionconfig.set_defaults(command="getversion")
+    """
         Command "config"
     """
     configconfig = subparsers.add_parser(
@@ -788,6 +794,13 @@ def legacyentry():
             # hide internal config data
             if key in availableConfigurationKeys:
                 t.add_row([key, configStorage[key]])
+        print(t)
+
+    elif args.command == "getversion":
+        t = PrettyTable(["Item", "Version"])
+        t.align = "l"
+        for key, value in steem.get_version().items():
+            t.add_row([key, value])
         print(t)
 
     elif args.command == "info":
